@@ -241,48 +241,6 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     ></script>
-    <script type="module">
-      import { db, collection, addDoc } from "../fireBase-auth.js";
-
-      const form = document.getElementById("form-add-new");
-      console.log("🚀 ~ file: create.html:248 ~ form:", form);
-
-      form.addEventListener("submit", function (event) {
-        event.preventDefault(); // Ngăn chặn gửi biểu mẫu thông qua phương thức mặc định
-
-        // Lấy các giá trị từ các trường trong biểu mẫu
-        const name = document.getElementById("name").value;
-        const brand = document.getElementById("brand").value;
-        const price = document.getElementById("price").value;
-        const category = document.getElementById("category").value;
-        const itemWeight = document.getElementById("item-weight").value;
-        const description = document.getElementById("description").value;
-
-        handleAddNew(name, brand, price, category, itemWeight, description);
-      });
-      async function handleAddNew(
-        name,
-        brand,
-        price,
-        category,
-        itemWeight,
-        description
-      ) {
-        try {
-          const docRef = await addDoc(collection(db, "posts"), {
-            name,
-            brand,
-            price,
-            category,
-            itemWeight,
-            description,
-          });
-          alert("Thêm thành công");
-          reset();
-        } catch (e) {
-          console.error("Error adding document: ", e);
-        }
-      }
-    </script>
+    
   </body>
 </html>
