@@ -178,24 +178,8 @@
                 required=""
               />
             </div>
-            <div>
-              <label
-                for="category"
-                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                >Category</label
-              >
-              <select
-                id="category"
-                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-              >
-                <option selected="">Select category</option>
-                <option value="TV">TV/Monitors</option>
-                <option value="PC">PC</option>
-                <option value="GA">Gaming/Console</option>
-                <option value="PH">Phones</option>
-              </select>
-            </div>
-            <div>
+
+            <div class="sm:col-span-2">
               <label
                 for="item-weight"
                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
@@ -241,6 +225,53 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     ></script>
-    
+    <script type="module">
+      import {
+        db,
+        collection,
+        addDoc,
+        serverTimestamp,
+      } from "../fireBase-auth.js";
+
+      const form = document.getElementById("form-add-new");
+      console.log("🚀 ~ file: create.html:248 ~ form:", form);
+
+      form.addEventListener("submit", function (event) {
+        event.preventDefault(); // Ngăn chặn gửi biểu mẫu thông qua phương thức mặc định
+
+        // Lấy các giá trị từ các trường trong biểu mẫu
+        const name = document.getElementById("name").value;
+        const brand = document.getElementById("brand").value;
+        const price = document.getElementById("price").value;
+
+        const itemWeight = document.getElementById("item-weight").value;
+        const description = document.getElementById("description").value;
+
+        handleAddNew(name, brand, price, itemWeight, description);
+      });
+      async function handleAddNew(
+        name,
+        brand,
+        price,
+
+        itemWeight,
+        description
+      ) {
+        try {
+          const docRef = await addDoc(collection(db, "posts"), {
+            name,
+            brand,
+            price,
+
+            itemWeight,
+            description,
+            timestamp: serverTimestamp(),
+          });
+          alert("Thêm thành công");
+        } catch (e) {
+          console.error("Error adding document: ", e);
+        }
+      }
+    </script>
   </body>
 </html>
